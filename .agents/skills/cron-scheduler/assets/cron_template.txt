@@ -1,0 +1,27 @@
+# AI Employee - Cron Schedule Template
+# Install with: crontab {PROJECT_PATH}/.agents/skills/cron-scheduler/assets/cron_template.txt
+#
+# Format: minute hour day month weekday command
+# Examples:
+#   */5 * * * *     = Every 5 minutes
+#   0 9 * * 1-5     = Monday-Friday at 9:00 AM
+#   0 0 * * *       = Daily at midnight
+#   0 */2 * * *     = Every 2 hours
+
+# Gmail Watcher - Every 5 minutes
+*/5 * * * * {PYTHON} {PROJECT_PATH}/.agents/skills/gmail-watcher/scripts/watch_gmail.py >> {PROJECT_PATH}/logs/gmail_watcher.log 2>&1
+
+# LinkedIn Watcher - Every 15 minutes during business hours (8 AM - 6 PM)
+*/15 8-18 * * 1-5 {PYTHON} {PROJECT_PATH}/.agents/skills/linkedin-watcher/scripts/watch_linkedin.py >> {PROJECT_PATH}/logs/linkedin_watcher.log 2>&1
+
+# Task Planner - Every hour
+0 * * * * {PYTHON} {PROJECT_PATH}/.agents/skills/task-planner/scripts/claude_reasoning_loop.py >> {PROJECT_PATH}/logs/claude_reasoning_loop.log 2>&1
+
+# Task Processor - Every 30 minutes
+*/30 * * * * {PYTHON} {PROJECT_PATH}/run_ai_employee.py --once >> {PROJECT_PATH}/logs/task_processor.log 2>&1
+
+# LinkedIn Business Post - Daily at 9:00 AM (Monday-Friday)
+0 9 * * 1-5 {PYTHON} {PROJECT_PATH}/.agents/skills/linkedin-business-poster/scripts/post_business_content.py --template thought_leadership >> {PROJECT_PATH}/logs/linkedin_poster.log 2>&1
+
+# Log Rotation - Daily at 11:59 PM
+59 23 * * * {PYTHON} {PROJECT_PATH}/log_manager.py >> {PROJECT_PATH}/logs/log_rotation.log 2>&1

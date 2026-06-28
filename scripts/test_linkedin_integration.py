@@ -1,0 +1,1 @@
+print('LinkedIn test: success')
