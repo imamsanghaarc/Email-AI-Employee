@@ -1,0 +1,21 @@
+# Normalize line endings in the repository to LF, and check out LF on every
+# platform. This matters here because Cloud Run builds the image on Linux, where
+# a CRLF shebang or a CRLF-terminated shell script fails at runtime.
+* text=auto eol=lf
+
+# Never touched by the EOL machinery.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+
+# Keep vault/task markdown byte-stable; these are fixtures asserted on in tests.
+AI_Employee_Vault/**/*.md -text
+tests/fixtures/**/*.md -text
+
+# Anything executed on Linux must be LF.
+*.sh text eol=lf
+Dockerfile text eol=lf

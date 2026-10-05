@@ -10,7 +10,11 @@ __pycache__/
 *.so
 .Python
 build/
+<<<<<<< HEAD
 develop-eggs/
+=======
+develop-egs/
+>>>>>>> c57ffdb (De-risk before public release: scrub PII, remove hardcoded credential, git init)
 dist/
 downloads/
 eggs/
@@ -25,7 +29,19 @@ wheels/
 .installed.cfg
 *.egg
 
+<<<<<<< HEAD
 # Logs
+=======
+# Test / tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Logs and runtime artifacts
+>>>>>>> c57ffdb (De-risk before public release: scrub PII, remove hardcoded credential, git init)
 logs/
 *.log
 
@@ -50,8 +66,39 @@ Thumbs.db
 .claude/
 .gemini/
 
+<<<<<<< HEAD
 # Environment variables
 .env
 
 # Vault working directory
 vault/
+=======
+# Environment variables.
+# .env is ignored; the committed template is not.
+.env
+.env.*
+!.env.example
+
+# --- AI Employee runtime vault -------------------------------------------------
+# The vault is runtime state, not source. The watcher, Gmail watcher and task
+# planner write captured mail, generated tasks, financial records and approval
+# requests here, so any of it can contain real personal data. Only the folder
+# skeleton is tracked, via .gitkeep.
+#
+# Sanitized copies of past captures live in tests/fixtures/vault/ and those ARE
+# tracked, because they are the test suite's fixtures.
+AI_Employee_Vault/Inbox/*
+AI_Employee_Vault/Needs_Action/*
+AI_Employee_Vault/Needs_Approval/*
+AI_Employee_Vault/Done/*
+AI_Employee_Vault/Errors/*
+AI_Employee_Vault/Plans/*
+AI_Employee_Vault/Reports/*
+AI_Employee_Vault/Accounting/*
+AI_Employee_Vault/Logs/*
+!AI_Employee_Vault/**/.gitkeep
+
+# Legacy vault working directory. Anchored to the repo root so it cannot match
+# tests/fixtures/vault/ - an unanchored "vault/" would ignore every vault dir.
+/vault/
+>>>>>>> c57ffdb (De-risk before public release: scrub PII, remove hardcoded credential, git init)

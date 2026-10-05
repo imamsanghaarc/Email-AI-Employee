@@ -1,0 +1,1 @@
+"""Test suite for ai_employee_mcp."""
